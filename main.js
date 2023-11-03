@@ -33,3 +33,43 @@ function toggleDestopMenu(){
     shoppingMenu.classList.toggle('inactive');
  }
 
+//  Carrito de compras
+
+const productList = [];
+
+productList.push({
+    name: "Jbl",
+    Price: 200,
+    image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+});
+productList.push({
+    name: "Gorra gooring",
+    Price: 80,
+    Image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+});
+
+productList.push({
+    name: 't-shirt',
+    price: 88,
+    Image:"https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    
+});
+// se hace un ciclo para mostrar productos de manera dinamica
+
+for (product of productList){
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const img = document.createElement('img');
+    img.setAttribute('src', product.image) ;
+
+    const productInfo = document.createElement('div');
+    productInfo.classList.add('product-info');
+
+    const productPrice = document.createElement('p');
+    productPrice.innerText = '$' + product.price;
+    
+    const productName = document.createElement('p');
+    productName.innerText = product.name;
+    
+}
