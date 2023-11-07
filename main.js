@@ -6,7 +6,7 @@ const menuMobile = document.querySelector('.mobile-menu');
 // Carrito de compras
 const shoppingIcon = document.querySelector('.navbar-shopping-cart');
 const shoppingMenu = document.querySelector('.product-detail');
-
+const cardsContainer = document.querySelector('.cards-container');
 
 shoppingIcon.addEventListener('click',toggleShoppingMenu);
 menuEmail.addEventListener('click', toggleDestopMenu);
@@ -33,43 +33,63 @@ function toggleDestopMenu(){
     shoppingMenu.classList.toggle('inactive');
  }
 
-//  Carrito de compras
+// lista de Carrito de compras
 
 const productList = [];
 
 productList.push({
     name: "Jbl",
-    Price: 200,
+    price: 200,
     image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
 });
 productList.push({
     name: "Gorra gooring",
-    Price: 80,
-    Image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    price: 80,
+    image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
 });
 
 productList.push({
     name: 't-shirt',
     price: 88,
-    Image:"https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    image:"https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
     
 });
 // se hace un ciclo para mostrar productos de manera dinamica
 
-for (product of productList){
-    const productCard = document.createElement('div');
-    productCard.classList.add('product-card');
-
-    const img = document.createElement('img');
-    img.setAttribute('src', product.image) ;
-
-    const productInfo = document.createElement('div');
-    productInfo.classList.add('product-info');
-
-    const productPrice = document.createElement('p');
-    productPrice.innerText = '$' + product.price;
+function mostrarProductos(arr){
+    for (product of arr){
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
     
-    const productName = document.createElement('p');
-    productName.innerText = product.name;
     
+        const mainImage = document.createElement('img');
+        mainImage.setAttribute('src', product.image) ;
+    
+        const productInfo = document.createElement('div');
+        productInfo.classList.add('product-info');
+       
+    
+    
+        const productInfoDiv = document.createElement('div');
+        const productPrice = document.createElement('p');
+        productPrice.innerText = '$' + product.price;
+        const productName = document.createElement('p');
+        productName.innerText = product.name;
+        productInfoDiv.appendChild(productPrice); //precio dentro de div
+        productInfoDiv.appendChild(productName);// nombre dentro de div
+    
+        
+        const productFigure = document.createElement('figure');
+        const productImg = document.createElement('img');
+        productImg.setAttribute('src', './icons/bt_add_to_cart.svg');
+        productFigure.appendChild(productImg); //Img dentro del figure
+    
+        productInfo.appendChild(productInfoDiv);//div dentro de productInfo(div)
+        productInfo.appendChild(productFigure);// Figure dentro de productInfo(div)
+    
+        productCard.appendChild(mainImage);//Imagen dentro del contenedor principal
+        productCard.appendChild(productInfo);//Product info dentro del contenedor principal
+        cardsContainer.appendChild(productCard);//Todo dentro de cardsContainer
+    }
 }
+mostrarProductos(productList);
