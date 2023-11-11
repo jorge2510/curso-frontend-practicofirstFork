@@ -50,26 +50,30 @@ productList.push({
     name: "Bmw x4M",
     price: "200.000",
     image: "https://www.bmw.ca/content/dam/bmw/common/all-models/m-series/x4m/2019/inspire/bmw-x4m-inspire-mg-m-competition-desktop-03.jpg",
-    description: "El BMW X4 es un automóvil todoterreno de lujo del segmento D con carrocería cupé similar al BMW X6 producido por el fabricante de automóviles alemán BMW desde el año 2014. Comparte plataforma con el BMW X3 el cual a su vez se basa en el BMW Serie 3."
+    description: "El BMW X4 es un automóvil todoterreno de lujo del segmento D con carrocería cupé similar al BMW X6 producido por el fabricante de automóviles alemán BMW desde el año 2014. Comparte plataforma con el BMW X3 el cual a su vez se basa en el BMW Serie 3.",
+    id: 'x4'
 });
 productList.push({
     name: "Kawassaki z1000",
     price: "40.000",
     image: "https://0.cdn.autotraderspecialty.com/Motorcycle-200902913-5ee400c070a9ac48912f958bfad145fb.jpg",
-    id: 'kawassaki'
+    id: 'kawassaki',
+    description: 'Un segundo a 200km/h causan mas emociones que 200 years a 1km/h'
 });
 
 productList.push({
     name: 'Can-am Maverick x3',
     price: "50.000",
     image:"https://utvactionmag.com/wp-content/uploads/2017/12/Can-Am2_WDP_2161_Maverick-X3-Intro_Mexico_.jpg",
-    description: "Sin duda es el campeón de las rocas, la tierra y las dunas. El Maverick X3 se adapta a cualquier aventura que sueñes. Empaca y toma el camino para llegar a los campamentos más remotos, o ganar la carrera más difícil."
+    description: "Sin duda es el campeón de las rocas, la tierra y las dunas. El Maverick X3 se adapta a cualquier aventura que sueñes. Empaca y toma el camino para llegar a los campamentos más remotos, o ganar la carrera más difícil.",
+    id: 'canam'
 });
 productList.push({
     name:'Bmw M2 competition' ,
     price: "90.000",
     image: "https://i2-prod.mirror.co.uk/incoming/article7423906.ece/ALTERNATES/s1200d/P90199694_highRes_the-new-bmw-m2-coupe.jpg",
     description: "The M2 Competition uses the BMW M GmbH S55 engine, a high performance variant of the N55 engine, that has been detuned from its application in the F80 M3 and F82 M4"
+    ,id:'m2' 
 });
 
 productList.push({
@@ -77,6 +81,7 @@ productList.push({
     price: '15.000',
     image: 'https://th.bing.com/th/id/R.0eb2b878fef0601b3e206256955a44ff?rik=qpEM9SFgqm6%2b7Q&riu=http%3a%2f%2fwww.rockypoint-vacations.com%2fwp-content%2fuploads%2f2011%2f04%2f12653_1.jpg&ehk=IPms7NUspEVGJnePJXscsIfmGpODQdI1oWfyCsA8TQY%3d&risl=&pid=ImgRaw&r=0',
     description: 'Jet Ski es una marca de motos acuáticas fabricadas por Kawasaki Heavy Industries. El nombre, sin embargo, se ha convertido en un nombre común usado para cualquier tipo de moto acuática. '
+    ,id: 'jetski'
 });
 
 
@@ -87,7 +92,7 @@ function mostrarProductos(arr){
     for (product of arr){
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
-    
+        productCard.setAttribute('id', product.id);
     
         const mainImage = document.createElement('img');
         mainImage.setAttribute('src', product.image) ;
@@ -117,20 +122,25 @@ function mostrarProductos(arr){
         productCard.appendChild(mainImage);//Imagen dentro del contenedor principal
         productCard.appendChild(productInfo);//Product info dentro del contenedor principal
         cardsContainer.appendChild(productCard);//Todo dentro de cardsContainer
-        productCard.addEventListener('click', (arr)=>{
+        // console.log(productCard.children[0]); 
+        productCard.addEventListener('click', (e)=>{
+            console.log("imagenAsaide", productCard);
+            let information = productList.filter((elemento)=>  (elemento.id===productCard.id)); //.filter regresa todos los elementos del array que cumplan con la condition
+            //informacion es = [[elemento]]
+            information = information[0];
             const aside = document.querySelector('.product-detail2')
 
             const imagenProduct = document.querySelector('.product-detail2-img');
-            imagenProduct.setAttribute('src', product.image);
+            imagenProduct.setAttribute('src', information.image);
             
             const nameProduct = document.querySelector('.product-detail2-name');
-            nameProduct.innerText= product.name;
+            nameProduct.innerText= information.name;
 
             const priceProduct = document.querySelector('.product-detail2-price');
-            priceProduct.innerText = product.price;
+            priceProduct.innerText = information.price;
 
             const descriptionProduct = document.querySelector('.product-detail2-description');
-            descriptionProduct.innerText = product.description;
+            descriptionProduct.innerText = information.description;
 
             aside.classList.toggle('inactive');
             closeIconDetail.addEventListener('click', ()=>{aside.classList.add('inactive')});
@@ -139,6 +149,7 @@ function mostrarProductos(arr){
     }
 }
 mostrarProductos(productList);
+
 
 
 
@@ -254,3 +265,4 @@ mostrarProductos(productList);
 
 // }
 // }
+
